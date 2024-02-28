@@ -85,5 +85,3 @@ export const createIngress = async (ingressType: IngressInput) => {
 
   revalidatePath(`/u/${self.username}/keys`);
 };
-
-// preset : IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
