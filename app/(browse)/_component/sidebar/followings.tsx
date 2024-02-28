@@ -6,7 +6,13 @@ import React from "react";
 import UserItem, { UserItemSkeleton } from "./userItem";
 
 interface FollowingsProps {
-  data: (Follow & { following: User })[];
+  data: (Follow & {
+    following: User & {
+      stream: {
+        isLive: boolean
+      };
+    };
+  })[];
 }
 
 const Followings = ({ data }: FollowingsProps) => {
@@ -29,6 +35,7 @@ const Followings = ({ data }: FollowingsProps) => {
             key={follow.following.id}
             username={follow.following.username}
             imageUrl={follow.following.imageUrl}
+            isLive={follow.following.stream?.isLive}
           />
         ))}
       </ul>

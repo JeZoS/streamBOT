@@ -1,9 +1,27 @@
-import React from 'react'
+import StreamPlayer from "@/components/stream-player";
+import { getUserByUsername } from "@/lib/user-service";
+import { currentUser } from "@clerk/nextjs";
+import React from "react";
 
-const Creater = () => {
-  return (
-    <div>Creator</div>
-  )
+interface CreaterProps {
+  params: {
+    username: string;
+  };
 }
 
-export default Creater
+const Creater = async ({ params }: CreaterProps) => {
+  const externalUser = await currentUser();
+  const user = await getUserByUsername(params.username);
+
+  if (!user || user.externalUserId !== externalUser?.id || !user.stream) {
+    throw new Error("Unauthorized");
+  }
+
+  return (
+    <div className="h-full">
+      <StreamPlayer user={user} stream={user.stream} isFollowing />
+    </div>
+  );
+};
+
+export default Creater;

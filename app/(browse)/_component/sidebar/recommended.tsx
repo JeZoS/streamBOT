@@ -6,7 +6,7 @@ import React from "react";
 import UserItem, { UserItemSkeleton } from "./userItem";
 
 interface RecommendedProps {
-  data: User[];
+  data: (User & {stream : {isLive : boolean} })[];
 }
 
 const Recommended = ({ data }: RecommendedProps) => {
@@ -23,7 +23,7 @@ const Recommended = ({ data }: RecommendedProps) => {
       )}
       <ul className="space-y-2 px-2">
         {data.map((user) => (
-          <UserItem key={user.id} username={user.username} imageUrl={user.imageUrl} isLive={true} />
+          <UserItem key={user.id} username={user.username} imageUrl={user.imageUrl} isLive={user.stream?.isLive} />
         ))}
       </ul>
     </div>
